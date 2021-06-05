@@ -13,6 +13,6 @@ services:
     - 8080:8080
     - 5005:8787
     volumes:
-    - ./target/libs/ageVerifier-1.0.jar:/opt/jboss/keycloak/standalone/deployments/ageVerifier-1.0.jar
+    - ./target/libs/ageValidator-1.0.jar:/opt/jboss/keycloak/standalone/deployments/ageValidator-1.0.jar
     - ./realm.json:/opt/jboss/realm.json
 
