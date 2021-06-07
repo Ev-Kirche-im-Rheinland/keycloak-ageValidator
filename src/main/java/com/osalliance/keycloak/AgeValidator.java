@@ -53,6 +53,11 @@ public class AgeValidator implements FormAction {
                 nowCal.setTime(now);
 
                 int yearsDiff = nowCal.get(Calendar.YEAR) - birthCal.get(Calendar.YEAR);
+                if(birthCal.get(Calendar.MONTH) > nowCal.get(Calendar.MONTH) ||
+                        (birthCal.get(Calendar.MONTH) == nowCal.get(Calendar.MONTH) &&
+                                birthCal.get(Calendar.DATE) > nowCal.get(Calendar.DATE)) ){
+                    yearsDiff--;
+                }
 
                 if (minAge > yearsDiff) {
                     context.error("you need to be at least "+minAge+" years old");
@@ -79,7 +84,7 @@ public class AgeValidator implements FormAction {
             try {
                 birthCal.setTime( new SimpleDateFormat("yyyy-MM-dd").parse(birthDate));
                 int year = birthCal.get(Calendar.YEAR);
-                int month = birthCal.get(Calendar.MONTH);
+                int month = birthCal.get(Calendar.MONTH)+1;//Java Calendar start at 0 = January
 
                 String dateAttribute = String.valueOf(month)+"-"+String.valueOf(year);
                 user.setAttribute(birthDateField, Collections.singletonList(dateAttribute));
