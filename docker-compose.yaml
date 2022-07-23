@@ -2,10 +2,12 @@ version: "3.3"
 
 services:
   keycloak:
-    image: kctest:latest
+    image: quay.io/keycloak/keycloak:18.0.2
+    command:
+      - start-dev
     environment:
-      KEYCLOAK_USER: "admin"
-      KEYCLOAK_PASSWORD: "1234"
+      KEYCLOAK_ADMIN: "admin"
+      KEYCLOAK_ADMIN_PASSWORD: "1234"
       DEBUG: "true"
       DEBUG_PORT: "*:8787"
       KEYCLOAK_IMPORT: "/opt/jboss/realm.json"
@@ -13,6 +15,6 @@ services:
     - 8080:8080
     - 5005:8787
     volumes:
-    - ./target/libs/ageValidator-1.0.jar:/opt/jboss/keycloak/standalone/deployments/ageValidator-1.0.jar
+    - ./target/libs/ageValidator-1.0.jar:/opt/keycloak/providers/ageValidator-1.0.jar
     - ./realm.json:/opt/jboss/realm.json
 
