@@ -29,7 +29,7 @@ public class AgeValidator implements FormAction {
         context.getEvent().detail(Details.REGISTER_METHOD, "form");
 
         if(context.getAuthenticatorConfig().getConfig().containsKey(AgeValidatorFactory.MIN_AGE)){
-            Integer minAge = Integer.valueOf(context.getAuthenticatorConfig().getConfig().get(AgeValidatorFactory.MIN_AGE));
+            int minAge = Integer.parseInt(context.getAuthenticatorConfig().getConfig().get(AgeValidatorFactory.MIN_AGE));
 
             List<FormMessage> errors = new ArrayList<FormMessage>();
 
@@ -49,6 +49,7 @@ public class AgeValidator implements FormAction {
 
                 Calendar birthCal = Calendar.getInstance(Locale.GERMANY);
                 Calendar nowCal = Calendar.getInstance(Locale.GERMANY);
+                assert birthDate != null;
                 birthCal.setTime(birthDate);
                 nowCal.setTime(now);
 

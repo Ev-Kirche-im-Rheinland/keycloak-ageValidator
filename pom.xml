@@ -6,14 +6,13 @@
 
     <groupId>com.osalliance.keycloak</groupId>
     <artifactId>ageValidator</artifactId>
-    <version>1.0</version>
+    <version>1.2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compile.source>11</maven.compile.source>
         <maven.compile.target>11</maven.compile.target>
-        <wildfly.version>21.0.1.Final</wildfly.version>
-        <keycloak.version>12.0.2</keycloak.version>
+        <keycloak.version>18.0.2</keycloak.version>
         <log4j.version>1.2.17</log4j.version>
         <powermock.version>2.0.9</powermock.version>
 
@@ -46,37 +45,30 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.11.1</version>
+            <version>3.23.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.22.jbossorg-1</version>
+            <version>1.7.36</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-jakartaee8-with-tools</artifactId>
-                <scope>import</scope>
-                <type>pom</type>
-                <version>${wildfly.version}</version>
-            </dependency>
-        </dependencies>
+
     </dependencyManagement>
 
 
@@ -84,7 +76,7 @@
         <repository>
             <id>jboss-public-repository-group</id>
             <name>JBoss Public Maven Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>

@@ -8,9 +8,8 @@ import org.keycloak.authentication.ValidationContext;
 import org.keycloak.events.Details;
 import org.keycloak.events.EventBuilder;
 import org.keycloak.models.*;
-import org.keycloak.services.resources.AttributeFormDataProcessor;
-import org.keycloak.userprofile.UserProfileAttributes;
-import org.keycloak.userprofile.profile.representations.AttributeUserProfile;
+import org.keycloak.userprofile.UserProfile;
+import org.keycloak.userprofile.Attributes;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
@@ -22,13 +21,12 @@ public class AgeValidatorTest {
     @Test
     public void testInvalidAge(){
 
-        AttributeUserProfile userProfile = Mockito.mock(AttributeUserProfile.class);
-        UserProfileAttributes userProfileAttributes = Mockito.mock(UserProfileAttributes.class);
+        UserProfile userProfile = Mockito.mock(UserProfile.class);
+        Attributes userProfileAttributes = Mockito.mock(Attributes.class);
         HttpRequest httpRequest = Mockito.mock(HttpRequest.class);
         ValidationContext context = Mockito.mock(ValidationContext.class);
         AuthenticatorConfigModel authenticatorConfigModel = Mockito.mock(AuthenticatorConfigModel.class);
 
-        MockedStatic<AttributeFormDataProcessor> mocked = mockStatic(AttributeFormDataProcessor.class);
 
         MultivaluedMap<String,String> formData = Mockito.mock(MultivaluedMap.class);
 
@@ -52,9 +50,7 @@ public class AgeValidatorTest {
         when(eventBuilder.detail(Details.REGISTER_METHOD, "form")).thenReturn(eventBuilder);
         when(context.getEvent()).thenReturn(eventBuilder);
         when(context.getHttpRequest()).thenReturn(httpRequest);
-        when(userProfileAttributes.getFirstAttribute(AgeValidator.birthDateField)).thenReturn(minAge);
         when(userProfile.getAttributes()).thenReturn(userProfileAttributes);
-        when(AttributeFormDataProcessor.toUserProfile(formData)).thenReturn(userProfile);
         when(context.getAuthenticatorConfig()).thenReturn(authenticatorConfigModel);
         when(authenticatorConfigModel.getConfig()).thenReturn(config);
 
@@ -63,20 +59,18 @@ public class AgeValidatorTest {
         ageVerifier.validate(context);
 
         verify(context,times(1)).error("you need to be at least "+minAge+" years old");
-        mocked.close();
 
     }
 
     @Test
     public void testValidAge(){
 
-        AttributeUserProfile userProfile = Mockito.mock(AttributeUserProfile.class);
-        UserProfileAttributes userProfileAttributes = Mockito.mock(UserProfileAttributes.class);
+        UserProfile userProfile = Mockito.mock(UserProfile.class);
+        Attributes userProfileAttributes = Mockito.mock(Attributes.class);
         HttpRequest httpRequest = Mockito.mock(HttpRequest.class);
         ValidationContext context = Mockito.mock(ValidationContext.class);
         AuthenticatorConfigModel authenticatorConfigModel = Mockito.mock(AuthenticatorConfigModel.class);
 
-        MockedStatic<AttributeFormDataProcessor> mocked = mockStatic(AttributeFormDataProcessor.class);
 
         MultivaluedMap<String,String> formData = Mockito.mock(MultivaluedMap.class);
 
@@ -100,7 +94,6 @@ public class AgeValidatorTest {
         when(context.getEvent()).thenReturn(eventBuilder);
         when(context.getHttpRequest()).thenReturn(httpRequest);
         when(userProfile.getAttributes()).thenReturn(userProfileAttributes);
-        when(AttributeFormDataProcessor.toUserProfile(formData)).thenReturn(userProfile);
         when(context.getAuthenticatorConfig()).thenReturn(authenticatorConfigModel);
         when(authenticatorConfigModel.getConfig()).thenReturn(config);
 
@@ -109,7 +102,6 @@ public class AgeValidatorTest {
         ageVerifier.validate(context);
 
         verify(context,times(1)).success();
-        mocked.close();
     }
 
 }
