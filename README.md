@@ -8,3 +8,7 @@ enforces minimum age for registration
 2. edit your registration flow
 3. add Age Validator to your registration flow
 5. set the minimum Age, by configuring the Age Validator Execution
+
+# Issues
+
+Post your issues at https://git.fairkom.net/fairlogin/keycloak-ageverifier/-/issues
